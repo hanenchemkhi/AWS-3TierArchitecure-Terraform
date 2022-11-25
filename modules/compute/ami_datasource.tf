@@ -1,4 +1,4 @@
-/*# Get Latest AWS AMI ID for Amazon2 Linux
+# Get Latest AWS AMI ID for Amazon2 Linux
 data "aws_ami" "amzlinux2" {
   most_recent = true
   owners      = ["amazon"]
@@ -18,4 +18,4 @@ data "aws_ami" "amzlinux2" {
     name   = "architecture"
     values = ["x86_64"]
   }
-}*/
+}

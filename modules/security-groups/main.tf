@@ -52,9 +52,9 @@ resource "aws_security_group" "web_sg" {
 
 resource "aws_security_group" "webserver_sg" {
   name        = "webserer_sg"
-    description = "Allow Inbound HTTP from FRONTEND APP, and SSH inbound traffic from Bastion"
+  description = "Allow Inbound HTTP from FRONTEND APP, and SSH inbound traffic from Bastion"
   vpc_id      = var.vpc_id
- 
+
 
   ingress {
     from_port       = 80
@@ -70,13 +70,13 @@ resource "aws_security_group" "webserver_sg" {
     security_groups = [aws_security_group.bastion_sg.id]
   }
 
- 
+
 }
 
 resource "aws_security_group" "data_sg" {
   name        = "data_sg"
   description = "Allow MySQL Port Inbound Traffic from Backend App Security Group"
-  vpc_id      = aws_vpc.three_tier_vpc.id
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port       = 3306
@@ -85,7 +85,7 @@ resource "aws_security_group" "data_sg" {
     security_groups = [aws_security_group.webserver_sg.id]
   }
 
- egress {
+  egress {
     from_port   = 32768
     to_port     = 65535
     protocol    = "tcp"
@@ -97,7 +97,7 @@ resource "aws_security_group" "data_sg" {
 ### DATABASE SUBNET GROUP
 
 /*resource "aws_db_subnet_group" "rds_subnetgroup" {
-  
+
   name       = "rds_subnetgroup"
   subnet_ids = [aws_subnet.three_tier_private_subnets_db[0].id, aws_subnet.three_tier_private_subnets_db[1].id]
 

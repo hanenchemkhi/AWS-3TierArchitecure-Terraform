@@ -28,7 +28,7 @@ variable "data_cidr" {
   type        = list(string)
   default     = ["10.0.111.0/24", "10.0.222.0/24"]
 }
-variable "my_public_ip"{
+variable "my_public_ip" {
   description = "Public IP"
-  type = string
+  type        = string
 }

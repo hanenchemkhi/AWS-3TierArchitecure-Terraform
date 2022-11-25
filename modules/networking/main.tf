@@ -1,11 +1,11 @@
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
   version = "3.18.1"
 
-  
-  
- 
-  
+
+
+
+
   name = "main"
   cidr = var.vpc_cidr
 
@@ -16,7 +16,7 @@ module "vpc" {
 
 
   create_database_subnet_group = true
-  
+
   enable_nat_gateway     = true
   single_nat_gateway     = true
   one_nat_gateway_per_az = false
@@ -25,62 +25,62 @@ module "vpc" {
   enable_dns_support   = true
 
   public_dedicated_network_acl = true
-  public_inbound_acl_rules = [ {
-    "cidr_block":  var.my_public_ip, 
-    "from_port": 22, 
-    "to_port": 22,
-    "protocol": "tcp", 
-    "rule_action": "allow", 
-    "rule_number": 100    
+  public_inbound_acl_rules = [{
+    "cidr_block" : var.my_public_ip,
+    "from_port" : 22,
+    "to_port" : 22,
+    "protocol" : "tcp",
+    "rule_action" : "allow",
+    "rule_number" : 100
     },
     {
-    "cidr_block": "0.0.0.0/0", 
-    "from_port": 80, 
-    "to_port": 80,
-    "protocol": "tcp", 
-    "rule_action": "allow", 
-    "rule_number": 200    
-    } ,
-    {
-    "cidr_block": "0.0.0.0/0", 
-    "from_port": 0, 
-    "to_port": 0,
-    "protocol": "-1", 
-    "rule_action": "deny", 
-    "rule_number": 300    
-    }
-    ]
-
-
-  private_dedicated_network_acl  = true
-  private_inbound_acl_rules = [ {
-    "cidr_block": var.my_public_ip, 
-    "from_port": 22, 
-    "to_port": 22,
-    "protocol": "tcp", 
-    "rule_action": "allow", 
-    "rule_number": 100    
+      "cidr_block" : "0.0.0.0/0",
+      "from_port" : 80,
+      "to_port" : 80,
+      "protocol" : "tcp",
+      "rule_action" : "allow",
+      "rule_number" : 200
     },
     {
-    "cidr_block": "0.0.0.0/0", 
-    "from_port": 80, 
-    "to_port": 80,
-    "protocol": "tcp", 
-    "rule_action": "allow", 
-    "rule_number": 200    
-    } ,
-    {
-    "cidr_block": "0.0.0.0/0", 
-    "from_port": 0, 
-    "to_port": 0,
-    "protocol": "-1", 
-    "rule_action": "deny", 
-    "rule_number": 300    
+      "cidr_block" : "0.0.0.0/0",
+      "from_port" : 0,
+      "to_port" : 0,
+      "protocol" : "-1",
+      "rule_action" : "deny",
+      "rule_number" : 300
     }
-    ]
+  ]
+
+
+  private_dedicated_network_acl = true
+  private_inbound_acl_rules = [{
+    "cidr_block" : var.my_public_ip,
+    "from_port" : 22,
+    "to_port" : 22,
+    "protocol" : "tcp",
+    "rule_action" : "allow",
+    "rule_number" : 100
+    },
+    {
+      "cidr_block" : "0.0.0.0/0",
+      "from_port" : 80,
+      "to_port" : 80,
+      "protocol" : "tcp",
+      "rule_action" : "allow",
+      "rule_number" : 200
+    },
+    {
+      "cidr_block" : "0.0.0.0/0",
+      "from_port" : 0,
+      "to_port" : 0,
+      "protocol" : "-1",
+      "rule_action" : "deny",
+      "rule_number" : 300
+    }
+  ]
 
   tags = {
-    Environment   = "DEV"
-    
+    Environment = "DEV"
+
   }
 }
