@@ -29,38 +29,20 @@ resource "aws_security_group" "alb_sg" {
 
 }
 
-resource "aws_security_group" "web_sg" {
-  name        = "web_sg"
-  description = "Allow SSH inbound traffic from Bastion, and HTTP inbound traffic from loadbalancer"
+
+
+
+resource "aws_security_group" "webserver_sg" {
+  name        = "webserver_sg"
+  description = "Allow Inbound HTTP from ALB, and SSH inbound traffic from Bastion"
   vpc_id      = var.vpc_id
 
-  ingress {
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
-    security_groups = [aws_security_group.bastion_sg.id]
-  }
 
   ingress {
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_sg.id]
-  }
-
-}
-
-resource "aws_security_group" "webserver_sg" {
-  name        = "webserer_sg"
-  description = "Allow Inbound HTTP from FRONTEND APP, and SSH inbound traffic from Bastion"
-  vpc_id      = var.vpc_id
-
-
-  ingress {
-    from_port       = 80
-    to_port         = 80
-    protocol        = "tcp"
-    security_groups = [aws_security_group.web_sg.id]
   }
 
   ingress {

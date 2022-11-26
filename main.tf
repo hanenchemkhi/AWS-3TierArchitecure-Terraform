@@ -23,12 +23,16 @@ module "load_balancer" {
   vpc_id          = module.networking.vpc_id
   private_subnets = module.networking.private_subnets
   security_groups = module.security-groups.alb_sg
+  webservers      = module.compute.webservers
 
 }
 
-module "compute"{
-  source = "./modules/compute"
-  vpc_id = module.networking.vpc_id
-  subnet = module.networking.public_subnets[0]
-  bastion-sg = module.security-groups.bastion_sg
+module "compute" {
+  source          = "./modules/compute"
+  vpc_id          = module.networking.vpc_id
+  public_subnet   = module.networking.public_subnets[0]
+  private_subnets = module.networking.private_subnets
+  bastion-sg      = module.security-groups.bastion_sg
+  webserver-sg    = module.security-groups.webserver_sg
+  lb_tg           = module.load_balancer.lb_tg
 }

@@ -7,3 +7,4 @@ variable "private_subnets" {
 variable "security_groups" {
   type = string
 }
+variable "webservers" {}
