@@ -2,7 +2,7 @@ resource "aws_lb" "alb" {
   name               = "application-lb"
   internal           = false
   load_balancer_type = "application"
-  idle_timeout    = 400
+  idle_timeout       = 400
   security_groups    = [var.security_groups]
   subnets            = [for subnet in var.private_subnets : subnet]
 
@@ -15,6 +15,11 @@ resource "aws_lb_target_group" "webservers_tg" {
   protocol = "HTTP"
   stickiness {
     type = "lb_cookie"
+  }
+  health_check {
+    enabled           = true
+    path              = "/"
+    healthy_threshold = 2
   }
   vpc_id = var.vpc_id
 }

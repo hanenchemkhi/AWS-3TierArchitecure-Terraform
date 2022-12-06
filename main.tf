@@ -36,3 +36,10 @@ module "compute" {
   webserver-sg    = module.security-groups.webserver_sg
   lb_tg           = module.load_balancer.lb_tg
 }
+
+module "database" {
+  source       = "./modules/database"
+  vpc_id       = module.networking.vpc_id
+  data_subnets = module.networking.data_subnets
+  data-sg      = module.security-groups.data_sg
+}

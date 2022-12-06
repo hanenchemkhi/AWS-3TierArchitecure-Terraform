@@ -74,16 +74,3 @@ resource "aws_security_group" "data_sg" {
     cidr_blocks = [var.vpc_cidr_block]
   }
 }
-
-
-### DATABASE SUBNET GROUP
-
-/*resource "aws_db_subnet_group" "rds_subnetgroup" {
-
-  name       = "rds_subnetgroup"
-  subnet_ids = [aws_subnet.three_tier_private_subnets_db[0].id, aws_subnet.three_tier_private_subnets_db[1].id]
-
-  tags = {
-    Name = "three_tier_rds_sng"
-  }
-}*/
